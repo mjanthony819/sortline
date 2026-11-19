@@ -1,0 +1,96 @@
+app:
+  id: ari:cloud:ecosystem::app/6d2393c0-e1e8-4937-86ee-827e568fe353
+  runtime:
+    name: nodejs22.x
+  licensing:
+    enabled: false
+modules:
+  jira:projectPage:
+    - key: sortline-project-page
+      resource: sortline-ui
+      resolver:
+        function: resolver
+      title: Sortline
+      layout: basic
+  jira:issuePanel:
+    - key: sortline-issue-panel
+      resource: sortline-ui
+      resolver:
+        function: resolver
+      title: Sortline triage
+      icon: icon.svg
+  trigger:
+    - key: issue-created-triage
+      events:
+        - avi:jira:created:issue
+      function: onIssueCreated
+  scheduledTrigger:
+    - key: nightly-learning
+      interval: day
+      function: learningRefresh
+  action:
+    - key: suggest-issue-type
+      name: Suggest issue type
+      function: suggestIssueTypeFn
+      actionVerb: GET
+      description: |
+        Classify an issue summary/description as bug, feature or docs using
+        Sortline's trained model. Read-only: returns a suggestion, never
+        changes Jira data.
+      inputs:
+        summary:
+          title: Summary
+          type: string
+          required: true
+          description: The issue summary to classify
+        description:
+          title: Description
+          type: string
+          required: false
+          description: Optional issue description text
+    - key: find-duplicate-issues
+      name: Find duplicate issues
+      function: findDuplicateIssuesFn
+      actionVerb: GET
+      description: |
+        Search a Jira project for open issues similar to a given summary.
+        Read-only: returns candidates, never changes Jira data.
+      inputs:
+        summary:
+          title: Summary
+          type: string
+          required: true
+          description: The issue summary to match against
+        projectKey:
+          title: Project key
+          type: string
+          required: true
+          description: The Jira project to search in
+  rovo:mcp:
+    - key: sortline-mcp
+      name: Sortline MCP
+      tools:
+        - suggest-issue-type
+        - find-duplicate-issues
+  function:
+    - key: resolver
+      handler: index.runUI
+    - key: onIssueCreated
+      handler: index.onIssueCreated
+    - key: learningRefresh
+      handler: index.learningRefresh
+    - key: suggestIssueTypeFn
+      handler: index.suggestIssueTypeAction
+    - key: findDuplicateIssuesFn
+      handler: index.findDuplicateIssuesAction
+resources:
+  - key: sortline-ui
+    path: static/
+permissions:
+  scopes:
+    - read:jira-work
+    - write:jira-work
+    - storage:app
+  external:
+    fetch:
+      backend: []

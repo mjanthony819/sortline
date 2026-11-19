@@ -1,0 +1,42 @@
+[
+ {
+  "text": "NullPointerException when saving form with empty title, app crashes with stack trace",
+  "pred": "bug",
+  "conf": 0.9964624947244589,
+  "probs": [
+   0.9964624947244589,
+   3.4857484087040476e-06,
+   0.0035340195271323233
+  ]
+ },
+ {
+  "text": "Add support for CSV export on the reports page so users can download data",
+  "pred": "feature",
+  "conf": 0.9990806551212581,
+  "probs": [
+   1.2456386700443784e-07,
+   0.0009192203148747805,
+   0.9990806551212581
+  ]
+ },
+ {
+  "text": "Update the onboarding documentation and user guide screenshots",
+  "pred": "docs",
+  "conf": 0.9960258892813453,
+  "probs": [
+   8.573332717357469e-07,
+   0.9960258892813453,
+   0.003973253385382914
+  ]
+ },
+ {
+  "text": "Intermittent 500 error from the REST endpoint under heavy load, timeout exception",
+  "pred": "feature",
+  "conf": 0.9074305485599687,
+  "probs": [
+   0.09256861419508516,
+   8.37244946082121e-07,
+   0.9074305485599687
+  ]
+ }
+]

@@ -1,0 +1,23 @@
+{
+  "name": "sortline",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ML issue triage for Jira (Forge app)",
+  "scripts": {
+    "build:ui": "node build-ui.mjs",
+    "test": "node test/resolver-actions.mjs && node test/model-regression.mjs"
+  },
+  "dependencies": {
+    "@forge/api": "^5.3.0",
+    "@forge/bridge": "^5.1.0",
+    "@forge/kvs": "^1.1.0",
+    "@forge/resolver": "^1.7.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "puppeteer": "^23.0.0"
+  }
+}
