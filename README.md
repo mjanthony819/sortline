@@ -49,6 +49,9 @@ public ASF Jira data; runs fully inside Forge (no external AI calls).
 - src/index.js - resolvers, triggers, scheduled learning, rovo actions
 - src/model-infer.js - JS inference (exact parity with the Python trainer)
 - src/model.json - exported weights
+- src/model-data.js and test/static-test/main.js are generated artifacts,
+  not committed. Regenerate: `{ printf 'export default '; cat src/model.json; } > src/model-data.js`
+  and `node test/render-ui.mjs` (which rebuilds test/static-test/main.js).
 - ui/ - React custom UI; build-ui.mjs bundles to static/
 - test/ - resolver/action tests (mocked Forge APIs), model regression,
   JS/Python parity, headless UI render check
